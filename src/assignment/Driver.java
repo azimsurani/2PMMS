@@ -12,6 +12,8 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
+		System.out.println("**** Welcome to 2PMMS System ****\n");
+		
 		while(true) {
 		
 			System.out.println("1. Create a random list of integers");
@@ -19,7 +21,7 @@ public class Driver {
 			System.out.println("3. Run 2PMMS");
 			System.out.println("4. Exit");
 			
-			System.out.println("Please specify your choice: ");
+			System.out.print("\nPlease specify your choice: ");
 			
 			int choice = sc.nextInt();
 			
@@ -30,7 +32,7 @@ public class Driver {
 						break;
 				default:
 					sc.close();
-					System.out.println("Thanks for using 2PMMS System!!");
+					System.out.println("\n**** Thanks for using 2PMMS System ****");
 					System.exit(0);
 					
 			}		
@@ -41,15 +43,15 @@ public class Driver {
 
 	private static void generateFile() {
 		
-		System.out.println("Please enter number of integers that you would like to generate : ");
+		System.out.print("\nPlease enter number of integers that you would like to generate : ");
 		
 		int n = sc.nextInt();
 		
-		System.out.println("Please enter the minmum number : ");
+		System.out.print("Please enter the minmum number : ");
 		
 		int min = sc.nextInt();
 		
-		System.out.println("Please enter the maximum number : ");
+		System.out.print("Please enter the maximum number : ");
 		
 		int max = sc.nextInt();
 		
@@ -69,7 +71,7 @@ public class Driver {
 			
 			pw.close();
 			
-			System.out.println("File was created successfully");
+			System.out.println("\n----File was created successfully-----\n");
 			
 			
 		} catch (FileNotFoundException e) {
