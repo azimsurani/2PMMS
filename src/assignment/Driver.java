@@ -1,5 +1,6 @@
 package assignment;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -28,8 +29,11 @@ public class Driver {
 			switch(choice) {
 			
 				case 1:	
-						generateFile();
-						break;
+					generateFile();
+					break;
+				case 2:
+					displayFile();
+					break;
 				default:
 					sc.close();
 					System.out.println("\n**** Thanks for using 2PMMS System ****");
@@ -39,6 +43,31 @@ public class Driver {
 			
 		}
 	
+	}
+
+	private static void displayFile() {
+		
+		try {
+			
+			
+			Scanner fr = new Scanner(new FileInputStream("input.txt"));
+			
+			System.out.println("\nThe randomly generated list is as follows: \n");
+			
+			while(fr.hasNextInt()) {
+				System.out.print(fr.nextInt()+" ");
+			}
+			
+			System.out.println("\n\n----File was read successfully-----\n");
+			
+
+	
+			fr.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Please generate the file first.");
+		}
+		
 	}
 
 	private static void generateFile() {
