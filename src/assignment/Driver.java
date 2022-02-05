@@ -7,10 +7,10 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Driver {
+	
+	private static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
 		
 		while(true) {
 		
@@ -41,8 +41,6 @@ public class Driver {
 
 	private static void generateFile() {
 		
-		Scanner sc = new Scanner(System.in);
-		
 		System.out.println("Please enter number of integers that you would like to generate : ");
 		
 		int n = sc.nextInt();
@@ -57,7 +55,6 @@ public class Driver {
 		
 		if(max<min) {
 			System.out.println("Maximum number can't be smaller than minimum number. Please start again.");
-			sc.close();
 			return;
 		}
 		
@@ -79,10 +76,7 @@ public class Driver {
 			e.printStackTrace();
 			System.out.println("Please try again");
 		}
-		
-		sc.close();
-		
-		
+				
 	}
 
 }
