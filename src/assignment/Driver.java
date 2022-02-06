@@ -1,5 +1,6 @@
 package assignment;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,6 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Driver {
 	
 	private static Scanner sc = new Scanner(System.in);
+	
+	private static int n;
 
 	public static void main(String[] args) {
 		
@@ -34,7 +37,11 @@ public class Driver {
 				case 2:
 					displayFile();
 					break;
+				case 3:
+					twoPhaseMultiwayMergeSort();
+					break;
 				default:
+					deleteIntermediateFiles();
 					sc.close();
 					System.out.println("\n**** Thanks for using 2PMMS System ****");
 					System.exit(0);
@@ -45,7 +52,101 @@ public class Driver {
 	
 	}
 
+	private static void deleteIntermediateFiles() {
+
+		
+		int memorySize = 2 * 1024; // Default size set to 2 MB
+		
+		int integerSize = 4; // Size of Integer in JAVA -- 4 Bytes
+		
+		int numberOfBlocks = n * integerSize / memorySize + ((n * integerSize / memorySize == 0) ? 0 : 1);
+		
+		for(int i=1;i<=numberOfBlocks;i++) {
+			File file = new File("sorted-"+i+".txt");
+			file.delete();
+		}
+	}
+
+	private static void twoPhaseMultiwayMergeSort() {
+		
+		if(n==0) {
+			System.out.println("Please generate the file first.");
+			return;
+		}
+		
+		int memorySize = 2 * 1024; // Default size set to 2 MB
+		
+		int integerSize = 4; // Size of Integer in JAVA -- 4 Bytes
+		
+		int numberOfBlocks = n * integerSize / memorySize + ((n * integerSize / memorySize == 0) ? 0 : 1);
+		
+		int numberOfIntegers = memorySize/integerSize;
+		
+		try {
+			
+			Scanner fr = new Scanner(new FileInputStream("input.txt"));
+			
+			System.out.println("\n----------Phase1---------\n");
+			
+			int count=0;
+		
+			
+			for(int i=1;i<numberOfBlocks;i++) {
+				
+				System.out.println("Proccesing Block : "+i);
+				
+				int arr[] = new int[numberOfIntegers];
+				
+				for(int j=0;j<arr.length;j++) {
+					arr[j] = fr.nextInt();
+					count++;
+				}
+				
+				MergeSort.mergeSort(arr, 0, arr.length-1);
+				
+				PrintWriter pw = new PrintWriter(new FileOutputStream("sorted-"+i+".txt"));
+				
+				for(int j=0;j<arr.length;j++) {
+					pw.println(arr[j]);
+				}
+				
+				pw.close();		
+				
+			}
+			
+			System.out.println("Proccesing Block : "+numberOfBlocks);
+			
+			int arr[] = new int[n-count];
+			
+			for(int j=0;j<arr.length;j++) {
+				arr[j] = fr.nextInt();
+				count++;
+			}
+			
+			MergeSort.mergeSort(arr, 0, arr.length-1);
+			
+			PrintWriter pw = new PrintWriter(new FileOutputStream("sorted-"+numberOfBlocks+".txt"));
+			
+			for(int j=0;j<arr.length;j++) {
+				pw.println(arr[j]);
+			}
+			
+			pw.close();
+
+			fr.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Input file not found!");
+		}
+		
+	}
+
 	private static void displayFile() {
+		
+		if(n==0) {
+			System.out.println("Please generate the file first.");
+			return;
+		}
 		
 		try {
 			
@@ -60,8 +161,6 @@ public class Driver {
 			
 			System.out.println("\n\n----File was read successfully-----\n");
 			
-
-	
 			fr.close();
 			
 		} catch (FileNotFoundException e) {
@@ -74,7 +173,7 @@ public class Driver {
 		
 		System.out.print("\nPlease enter number of integers that you would like to generate : ");
 		
-		int n = sc.nextInt();
+		n = sc.nextInt();
 		
 		System.out.print("Please enter the minmum number : ");
 		
