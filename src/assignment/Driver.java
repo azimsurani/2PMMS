@@ -53,9 +53,6 @@ public class Driver {
 	}
 
 	private static void deleteIntermediateFiles() {
-		
-		
-
 
 		int memorySize = 2 * 1024; // Default size set to 2 MB
 
