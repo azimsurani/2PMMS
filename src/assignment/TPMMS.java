@@ -34,8 +34,8 @@ public class TPMMS {
 
 			Scanner fr = new Scanner(new FileInputStream("input.txt"));
 
-			System.out.println("\n----------Phase1---------\n");
-
+			System.out.println("\n----------Phase1 (Using MergeSort)---------\n");
+			
 			int count=0;
 
 
@@ -44,23 +44,29 @@ public class TPMMS {
 				System.out.println("Proccesing Block : "+i);
 
 				int arr[] = new int[numberOfIntegers];
+				
+				System.out.println("\nBefore Sorting : ");
 
 				for(int j=0;j<arr.length;j++) {
 					arr[j] = fr.nextInt();
+					System.out.print(arr[j]+" ");
 					count++;
 				}
 
 				MergeSort.mergeSort(arr, 0, arr.length-1);
 
 				PrintWriter pw = new PrintWriter(new FileOutputStream("sorted-"+i+".txt"));
+				
+				System.out.println("\n\nAfter Sorting : ");
 
 				for(int j=0;j<arr.length;j++) {
+					System.out.print(arr[j]+" ");
 					pw.println(arr[j]);
 				}
 
 				pw.close();		
 
-				System.out.println("sorted-"+i+".txt was created.\n");
+				System.out.println("\n\nsorted-"+i+".txt was created.\n");
 
 			}
 
@@ -78,6 +84,7 @@ public class TPMMS {
 			PrintWriter pw = new PrintWriter(new FileOutputStream("sorted-"+numberOfBlocks+".txt"));
 
 			for(int j=0;j<arr.length;j++) {
+				System.out.print(arr[j]+" ");
 				pw.println(arr[j]);
 			}
 
@@ -85,13 +92,13 @@ public class TPMMS {
 
 			fr.close();
 
-			System.out.println("sorted-"+numberOfBlocks+".txt was created.\n");
+			System.out.println("\nsorted-"+numberOfBlocks+".txt was created.\n");
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Input file not found!");
 		}
 
-		System.out.println("\nPhase 1 was Completed Successfully");
+		System.out.println("\nPhase 1 was completed successfully");
 
 	}
 
@@ -111,7 +118,11 @@ public class TPMMS {
 			
 			copyFile("sorted-0.txt","output.txt");
 			
+			System.out.println("Copying the contents from sorted-0.txt to output.txt");
+			
 			System.out.println("output.txt was created.");
+			
+			System.out.println("Total 1 pass was needed.");
 			
 		}else {
 
@@ -132,9 +143,14 @@ public class TPMMS {
 				combineTwoFiles(file1, file2, targetFile, numberOfIntegers);
 
 			}
+			
+			System.out.println("Total : "+(numberOfBlocks-1)+" passes were needed.");
+			
 		}
+		
+		
 
-		System.out.println("\nPhase 2 was Completed Successfully\n");
+		System.out.println("\nPhase 2 was completed successfully\n");
 
 	}
 	
@@ -163,6 +179,8 @@ public class TPMMS {
 	private static void combineTwoFiles(String file1,String file2,String targetFile,int numberOfIntegers) {
 
 		System.out.println("Combining "+file1+" and "+file2+" .");
+		
+		System.out.println("\nAfter combining the contents of file are : ");
 
 
 		Queue queue1 = new Queue(numberOfIntegers/2);
@@ -228,10 +246,14 @@ public class TPMMS {
 
 
 				if(queue1.front()<queue2.front()) {
-					pw.println(queue1.dequeue());
+					int front = queue1.dequeue();
+					System.out.print(front+" ");
+					pw.println(front);
 					flag=1;
 				}else {
-					pw.println(queue2.dequeue());
+					int front = queue2.dequeue();
+					System.out.print(front+" ");
+					pw.println(front);
 					flag=2;
 				}
 			}
@@ -240,7 +262,7 @@ public class TPMMS {
 			fs2.close();
 			pw.close();
 
-			System.out.println(targetFile+" was created.");
+			System.out.println("\n\n"+targetFile+" was created.\n");
 
 
 		} catch (FileNotFoundException e) {
