@@ -1,0 +1,3 @@
+Total time taken : 122762 milliseconds
+
+For both the phases combined with memory limit set as 20MB.

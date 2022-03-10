@@ -38,6 +38,9 @@ public class Driver {
 				displayFile();
 				break;
 			case 3:
+				if(n==0) {
+					n = countTotalNumberOfIntegers();
+				}
 				TPMMS.twoPhaseMultiwayMergeSort(n);
 				break;
 			default:
@@ -52,9 +55,29 @@ public class Driver {
 
 	}
 
+	private static int countTotalNumberOfIntegers() {
+		try {
+			Scanner fr = new Scanner(new FileInputStream("input.txt"));
+			int count=0;
+			
+			while(fr.hasNextInt()) {
+				count++;
+				fr.nextInt();
+			}
+			fr.close();
+			
+			return count;
+		
+		} catch (FileNotFoundException e) {
+			return 0;
+		}
+		
+		
+	}
+
 	private static void deleteIntermediateFiles() {
 
-		int memorySize = 2 * 1024; // Default size set to 2 MB
+		int memorySize = Constants.MEMORY_SIZE;
 
 		int integerSize = 4; // Size of Integer in JAVA -- 4 Bytes
 
@@ -91,7 +114,7 @@ public class Driver {
 			System.out.println("\nThe randomly generated list is as follows: \n");
 
 			while(fr.hasNextInt()) {
-				System.out.print(fr.nextInt()+" ");
+				Logger.Log(fr.nextInt()+" ");
 			}
 
 			System.out.println("\n\n----File was read successfully-----\n");

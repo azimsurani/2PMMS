@@ -9,24 +9,34 @@ import java.util.Scanner;
 public class TPMMS {
 
 	public static void twoPhaseMultiwayMergeSort(int n) {
-
+		
 		if(n==0) {
-			System.out.println("Please generate the file first.");
+			System.out.println("Please generate the input file first.");
 			return;
 		}
+		
+		long startTime = System.currentTimeMillis();
 
 		phase1(n);
 		phase2(n);
+		
+		long endTime = System.currentTimeMillis();
+		
+		long totalTime = endTime - startTime;
+		
+		System.out.println("Total time taken : " + totalTime +" milliseconds\n");
 
 	}
 
 	private static void phase1(int n) {
 
-		int memorySize = 2 * 1024; // Default size set to 2 MB
+		int memorySize = Constants.MEMORY_SIZE;
 
 		int integerSize = 4; // Size of Integer in JAVA -- 4 Bytes
 
 		int numberOfBlocks = n * integerSize / memorySize + ((n * integerSize / memorySize == 0) ? 0 : 1);
+		
+		System.out.println("Total number of Blocks : "+numberOfBlocks);
 
 		int numberOfIntegers = memorySize/integerSize;
 
@@ -49,7 +59,7 @@ public class TPMMS {
 
 				for(int j=0;j<arr.length;j++) {
 					arr[j] = fr.nextInt();
-					System.out.print(arr[j]+" ");
+					Logger.Log(arr[j]+" ");
 					count++;
 				}
 
@@ -60,7 +70,7 @@ public class TPMMS {
 				System.out.println("\n\nAfter Sorting : ");
 
 				for(int j=0;j<arr.length;j++) {
-					System.out.print(arr[j]+" ");
+					Logger.Log(arr[j]+" ");
 					pw.println(arr[j]);
 				}
 
@@ -84,7 +94,7 @@ public class TPMMS {
 			PrintWriter pw = new PrintWriter(new FileOutputStream("sorted-"+numberOfBlocks+".txt"));
 
 			for(int j=0;j<arr.length;j++) {
-				System.out.print(arr[j]+" ");
+				Logger.Log(arr[j]+" ");
 				pw.println(arr[j]);
 			}
 
@@ -96,6 +106,7 @@ public class TPMMS {
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Input file not found!");
+			System.exit(1);
 		}
 
 		System.out.println("\nPhase 1 was completed successfully");
@@ -106,7 +117,7 @@ public class TPMMS {
 
 		System.out.println("\n----------Phase2---------\n");
 
-		int memorySize = 2 * 1024; // Default size set to 2 MB
+		int memorySize = Constants.MEMORY_SIZE;
 
 		int integerSize = 4; // Size of Integer in JAVA -- 4 Bytes
 
@@ -247,12 +258,12 @@ public class TPMMS {
 
 				if(queue1.front()<queue2.front()) {
 					int front = queue1.dequeue();
-					System.out.print(front+" ");
+					Logger.Log(front+" ");
 					pw.println(front);
 					flag=1;
 				}else {
 					int front = queue2.dequeue();
-					System.out.print(front+" ");
+					Logger.Log(front+" ");
 					pw.println(front);
 					flag=2;
 				}
