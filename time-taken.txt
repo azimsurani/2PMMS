@@ -1,3 +1,7 @@
-Total time taken : 122762 milliseconds
+Total time taken : 672006 milliseconds -- 5MB
 
-For both the phases combined with memory limit set as 20MB.
+Total time taken : 270645 milliseconds -- 10MB
+
+Total time taken : 122762 milliseconds -- 20MB
+
+The above tiimings were recorded for n= 1,000,000
